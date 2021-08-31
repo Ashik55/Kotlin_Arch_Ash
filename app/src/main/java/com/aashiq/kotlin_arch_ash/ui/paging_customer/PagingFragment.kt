@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleObserver
 import com.aashiq.kotlin_arch_ash.R
@@ -17,16 +18,16 @@ import com.aashiq.kotlin_arch_ash.ui.main.CustomerAdapter
 import com.aashiq.kotlin_arch_ash.ui.main.MainViewModel
 import com.aashiq.kotlin_arch_ash.utils.NetworkResult
 
-class PagingFragment : Fragment(), LifecycleObserver {
+class PagingFragment : DialogFragment() {
 
-    private val pagingViewModel by viewModels<PagingViewModel>()
+    //    private val pagingViewModel by viewModels<PagingViewModel>()
+    private val pagingViewModel: PagingViewModel by viewModels()
     lateinit var binding: PagingFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = PagingFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -34,7 +35,7 @@ class PagingFragment : Fragment(), LifecycleObserver {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
+        fetchData()
     }
 
 
@@ -46,7 +47,7 @@ class PagingFragment : Fragment(), LifecycleObserver {
 
     private fun fetchData() {
         fetchResponse()
-        pagingViewModel.response.observe(this) { response ->
+        pagingViewModel.response.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     response.data?.let {

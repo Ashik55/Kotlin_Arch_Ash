@@ -13,17 +13,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PagingViewModel @Inject constructor(
-    private val repository: Repository,
-    application: Application
-) : AndroidViewModel(application) {
+    private val repository: Repository
+) : ViewModel() {
 
     private val _response: MutableLiveData<NetworkResult<CustomersResponse>> = MutableLiveData()
     val response: LiveData<NetworkResult<CustomersResponse>> = _response
 
-
-    init {
-        fetchCustomerList()
-    }
 
     fun fetchCustomerList() = viewModelScope.launch {
         repository.getDog().collect { values ->

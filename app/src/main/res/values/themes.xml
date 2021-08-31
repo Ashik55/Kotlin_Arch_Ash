@@ -18,14 +18,17 @@
         <!-- Customize your theme here. -->
 
 
-        <!-- Full Screen Dialog -->
-        <style name="DialogTheme" parent="Theme.AppCompat.Light.NoActionBar">
-            <item name="android:windowNoTitle">true</item>
-            <item name="android:statusBarColor">@color/white</item>
-            <item name="android:windowFullscreen">false</item>
-            <!--        <item name="android:windowAnimationStyle">@style/fadeAnim</item>-->
-        </style>
 
 
     </style>
+
+    <!-- Full Screen Dialog -->
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+
+
 </resources>
