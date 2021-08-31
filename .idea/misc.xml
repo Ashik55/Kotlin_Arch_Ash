@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Projects/Android/Kotlin_Arch_Ash/app/src/main/res/layout/activity_main.xml" value="0.12685185185185185" />
+        <entry key="..\:/Projects/Android/Kotlin_Arch_Ash/app/src/main/res/layout/activity_main.xml" value="0.199438202247191" />
+        <entry key="..\:/Projects/Android/Kotlin_Arch_Ash/app/src/main/res/layout/item_contacts.xml" value="0.26851851851851855" />
+        <entry key="..\:/Projects/Android/Kotlin_Arch_Ash/app/src/main/res/layout/item_progressBar.xml" value="0.371875" />
       </map>
     </option>
   </component>

@@ -1,6 +1,8 @@
 package com.aashiq.kotlin_arch_ash.di
 
-import com.aashiq.kotlin_arch_ash.data.remote.DogService
+import android.util.Log
+import com.aashiq.kotlin_arch_ash.data.local.MySharedPreferences
+import com.aashiq.kotlin_arch_ash.data.remote.ApiService
 import com.aashiq.kotlin_arch_ash.utils.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -22,6 +24,20 @@ object NetworkModule {
             .Builder()
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor{ chain ->
+
+                val authorization = MySharedPreferences.getToken()
+                Log.d("access_token", "" + authorization)
+                val newRequest = chain.request().newBuilder()
+                    .addHeader("access_token", authorization ?: "")
+                    .build()
+                val response = chain.proceed(newRequest)
+                if (response.code == 401) {
+                    //Signout user
+                    return@addInterceptor response
+                }
+                return@addInterceptor response
+            }
             .build()
     }
 
@@ -45,7 +61,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideCurrencyService(retrofit: Retrofit): DogService =
-        retrofit.create(DogService::class.java)
+    fun provideCurrencyService(retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
 
 }

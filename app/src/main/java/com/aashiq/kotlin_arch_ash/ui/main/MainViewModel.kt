@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.aashiq.kotlin_arch_ash.data.Repository
-import com.aashiq.kotlin_arch_ash.model.DogResponse
+import com.aashiq.kotlin_arch_ash.model.CustomersResponse
 import com.aashiq.kotlin_arch_ash.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -25,44 +25,30 @@ class MainViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val _response: MutableLiveData<NetworkResult<DogResponse>> = MutableLiveData()
-    val response: LiveData<NetworkResult<DogResponse>> = _response
+    private val _response: MutableLiveData<NetworkResult<CustomersResponse>> = MutableLiveData()
+    val response: LiveData<NetworkResult<CustomersResponse>> = _response
 
-    private val _downloadResponse: MutableLiveData<Boolean> = MutableLiveData()
 
-    val downloadResponse = _downloadResponse
-
-    fun fetchDogResponse() = viewModelScope.launch {
+    fun fetchCustomerList() = viewModelScope.launch {
         repository.getDog().collect { values ->
+
+            println(values)
+
             _response.value = values
         }
     }
 
 
-    fun downloadImage(bitmap: Bitmap, dir: File, fileName: String) {
+//    fun downloadImage(bitmap: Bitmap, dir: File, fileName: String) {
+//
+//        viewModelScope.launch {
+//            repository.saveImage(bitmap, dir, fileName).collect { value ->
+//                _downloadResponse.value = value
+//            }
+//        }
+//    }
 
-        viewModelScope.launch {
-            repository.saveImage(bitmap, dir, fileName).collect { value ->
-                _downloadResponse.value = value
-            }
-        }
-    }
 
 
-    private fun hasInternetConnection(): Boolean {
-        val connectivityManager = getApplication<Application>().getSystemService(
-            Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
-
-        val activeNetwork = connectivityManager.activeNetwork ?: return false
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
-
-        return when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
-    }
 
 }
