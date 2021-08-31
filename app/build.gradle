@@ -39,6 +39,9 @@ android {
 
 dependencies {
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     def coilVersion = '1.2.2'
     def hiltVersion = "2.38.1"
     def retrofitVersion = "2.9.0"

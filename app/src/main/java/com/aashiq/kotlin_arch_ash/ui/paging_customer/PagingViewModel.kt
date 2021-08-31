@@ -1,26 +1,18 @@
-package com.aashiq.kotlin_arch_ash.ui.main
+package com.aashiq.kotlin_arch_ash.ui.paging_customer
 
 import android.app.Application
-import android.content.Context
-import android.graphics.Bitmap
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.aashiq.kotlin_arch_ash.data.Repository
 import com.aashiq.kotlin_arch_ash.model.CustomersResponse
 import com.aashiq.kotlin_arch_ash.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class PagingViewModel @Inject constructor(
     private val repository: Repository,
     application: Application
 ) : AndroidViewModel(application) {
@@ -28,6 +20,10 @@ class MainViewModel @Inject constructor(
     private val _response: MutableLiveData<NetworkResult<CustomersResponse>> = MutableLiveData()
     val response: LiveData<NetworkResult<CustomersResponse>> = _response
 
+
+    init {
+        fetchCustomerList()
+    }
 
     fun fetchCustomerList() = viewModelScope.launch {
         repository.getDog().collect { values ->
