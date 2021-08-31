@@ -27,9 +27,9 @@ object NetworkModule {
             .addInterceptor{ chain ->
 
                 val authorization = MySharedPreferences.getToken()
-                Log.d("access_token", "" + authorization)
+                Log.d("Authorization", "" + authorization)
                 val newRequest = chain.request().newBuilder()
-                    .addHeader("access_token", authorization ?: "")
+                    .addHeader("Authorization", authorization ?: "")
                     .build()
                 val response = chain.proceed(newRequest)
                 if (response.code == 401) {

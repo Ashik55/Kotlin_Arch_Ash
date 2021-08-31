@@ -48,6 +48,8 @@ dependencies {
     def dimenVersion = "1.0.6"
     def easypermVersion = "3.0.0"
     def activityVersion = "1.1.0"
+    def prefVersion = "1.1.0"
+    def bindingVersion = "4.2.1"
 
 
     implementation 'androidx.core:core-ktx:1.6.0'
@@ -64,8 +66,11 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$activityVersion"
 
     //ViewBinding
-    implementation 'com.android.databinding:viewbinding:4.2.1'
+    implementation "com.android.databinding:viewbinding:$bindingVersion"
 
+
+    //Preference Manager
+    implementation "androidx.preference:preference-ktx:$prefVersion"
 
     //coil
     implementation "io.coil-kt:coil:$coilVersion"
